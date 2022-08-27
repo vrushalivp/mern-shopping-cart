@@ -1,0 +1,9 @@
+.centerDiv {
+    margin: auto;
+    position: absolute;
+    -ms-transform: translateY(-50%, -50%);
+    transform: translateY(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border: 1px solid black;
+}
