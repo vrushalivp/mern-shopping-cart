@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/sideCss.css">
+</head>
+
+<body>
+
+    <div class="wrapper d-flex align-items-stretch">
+
+        <%- include('../shared/sidebarOne'); %>
+
+            <!-- Page Content  -->
+            <div id="content" class="p-4 p-md-5">
+
+                <%- include('../shared/sidebarHeader'); %>
+
+                    <h2 class="mb-4">Edit Product Details</h2>
+
+                    <div class="jumbotron ">
+                        <form action="/admin/add-product" method="post">
+                            <div class="form-row justify-content-center">
+
+                                <div class="form-group col-md-12">
+                                    <label for="inputName4">Title</label>
+                                    <input type="name" name="title" class="form-control" id="inputName4"
+                                        placeholder="Product Title">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="inputCategory4">Category</label>
+                                    <input type="text" name="category" class="form-control" id="inputCategory4"
+                                        placeholder="Product Category">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="inputDescription4">Description</label>
+                                    <input type="text" name="description" class="form-control" id="inputCategory4"
+                                        placeholder="Product Description">
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label for="inputRate4">Rate Product</label>
+                                    <input type="text" name="Rate" class="form-control" id="inputRate4"
+                                        placeholder="Product Rate">
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label for="inputImageUrl4">Image Url</label>
+                                    <input type="text" name="imageurl" class="form-control" id="inputImageUrl4"
+                                        placeholder="Product Image Url">
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="inputPrice4">Price</label>
+                                    <input type="text" name="price" class="form-control" id="inputPrice4"
+                                        placeholder="Price">
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="inputQuantity4">Quantity</label>
+                                    <input type="Quantity" name="rating.count" class="form-control" id="inputQuantity4"
+                                        placeholder="Quantity">
+                                </div>
+
+                                <div class="form-group col-md-8 text-center">
+                                    <button type="submit" class="btn btn-primary btn-block">Add Product
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+            </div>
+    </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

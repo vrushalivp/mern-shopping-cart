@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/sideCss.css">
+</head>
+
+<body>
+
+    <div class="wrapper d-flex align-items-stretch">
+
+        <%- include('../shared/sidebarOne'); %>
+
+            <!-- Page Content  -->
+            <div id="content" class="p-4 p-md-5">
+                <%- include('../shared/sidebarHeader'); %>
+
+
+
+                    <h2 class="mb-4">All Users</h2>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                                <th>Order History</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach(function(user){ %>
+
+                                <tr>
+                                    <td>
+                                        <%= user.userId %>
+                                    </td>
+                                    <td>
+                                        <%= user.name %>
+                                    </td>
+                                    <td>
+                                        <%= user.email %>
+                                    </td>
+                                    <td>
+                                        <%= user.password %>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning"
+                                            href="/admin/update-user?name=<%= user.name %>&id=<%= user._id %>&email=<%= user.email %>&password=<%= user.password %>">Edit
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" href="/admin/user-delete?id=<%= user._id %>">Delete
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" style="background-color: rgb(36, 129, 210);"
+                                            href="/admin/orders/<%= user.email %>">Orders
+                                        </a>
+                                    </td>
+
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+
+
+
+            </div>
+    </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

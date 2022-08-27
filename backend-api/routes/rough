@@ -1,0 +1,580 @@
+value['products'].map((val, key) => {
+
+
+    if (val['productId']) {
+
+        console.log('\n\n\nin if 1: ' + value['products'].indexOf(val['productId']));
+
+        if (orderDetails.indexOf(val['productId']) === -1) {
+
+            console.log('\n\n\nin if : ' + orderDetails.indexOf(val['productId']));
+
+
+            orderDetails.push({
+                products: [val['productId']],
+                prodQuantity: val['Quantity'],
+                orderDate: value['date'],
+                totalAmount: value['totalAmount']
+            })
+        }
+    }
+
+})
+
+//----------------------------------------------------------------------------------------------------
+
+
+orderDetails.map(async (value1, key1) => {
+    console.log('\n\n\n values in orderDetails + : ' + value1['products'])
+    value1['products'].forEach(async ele => {
+        console.log('\n\n\nforech : ' + ele);
+        if (ele.productId) {
+            const productRes = await Products.find({ _id: ele.productId })
+            console.log('\n\n\nproductRes in order   : ' + JSON.stringify(productRes));
+
+            //    await Products.find({_id:ele.productId},
+            function (err, products) {
+                if (productRes) {
+
+                    console.log('find product in order  2 : ' + JSON.stringify(productRes));
+
+                    unique = productRes;
+                    // res.render('./admin/product/allProduct', { products: products });
+                }
+                // });
+            }
+        })
+})
+
+
+
+
+//------------------------------------------------------------------------------------------------------
+
+router.get('/orders/:id', async function (req, res, next) {
+
+    var prodTitle
+    var prodPrice
+    var prodQuantity
+    var orderDate
+    var totalAmount
+    var category
+
+    var unique = []
+
+    var orderDetails = []
+
+    var prodIds = []
+    console.log('orders route admin : ' + req.params.id);
+    var orders = await Orders.find({ email: req.params.id })
+    Orders.find({ email: req.params.id },
+        function (err, orders) {
+            if (err) {
+                console.log('error orders of user : ' + JSON.stringify(err));
+                res.render('error');
+            } else {
+                console.log('\n\norders of user : ' + JSON.stringify(orders) + "\n\n " + orders.length);
+
+                orders.map(async (value, key) => {
+                    console.log('\n\n\nchecking map : ' + value)
+
+
+                    value['products'].forEach(async ele => {
+                        if (ele.productId) {
+                            const productRes = await Products.find({ _id: ele.productId })
+                            //    await Products.find({_id:ele.productId},
+                            function (err, products) {
+                                if (productRes) {
+
+                                    console.log('find product in order  2 : ' + JSON.stringify(productRes));
+
+                                    unique = productRes;
+
+                                    orderDetails.push({
+                                        products: { productId: productRes.push({ qty: ele.Quantity, exactPrice: ele.price }) },
+
+                                        orderDate: value['date'],
+                                        totalAmount: value['totalAmount']
+                                    })
+                                    // res.render('./admin/product/allProduct', { products: products });
+                                }
+                                // });
+                            }
+                        })
+                })
+
+
+
+
+
+
+                console.log('\n\n\nfinal order of user : ' + JSON.stringify(orderDetails));
+                console.log('\n\nfind product in order  length : ' + orderDetails.length);
+
+                res.render('./admin/user/orders',
+                    {
+                        orderDetails: orderDetails
+                    });
+
+            }
+        })
+
+
+
+});
+
+
+
+
+
+
+
+
+
+//---------------------------------------------------------------
+
+[
+    {
+        "products": [{
+            "productId": "63046f7ec1681382ff19d97a",
+            "qty": 1
+        }]
+    },
+    {
+        "products": [{
+            "productId": "63046f7ec1681382ff19d97b",
+            "qty": 1
+        }]
+    },
+    {
+        "products": [{
+            "productId": "63046f7ec1681382ff19d982",
+            "qty": 2
+        }]
+    },
+    {
+
+        "products": [{
+            "productId": "63046f7ec1681382ff19d982",
+            "qty": 2
+        }],
+
+        "orderDate": "8/26/2022, 11:27:38 AM",
+        "totalAmount": 134.96
+    },
+    {
+
+        "products": [{
+            "productId": "63046f7ec1681382ff19d97a",
+            "qty": 1, "exactPrice": 9.99
+        }],
+
+        "orderDate": "8/26/2022, 11:30:36 AM",
+        "totalAmount": 134.96
+    },
+    {
+
+        "products": [{
+            "productId": "63046f7ec1681382ff19d97b",
+            "qty": 1, "exactPrice": 10.99
+        }],
+
+        "orderDate": "8/26/2022, 11:30:36 AM",
+        "totalAmount": 134.96
+    },
+    {
+
+        "products": [{
+            "productId": "63046f7ec1681382ff19d982",
+            "qty": 2, "exactPrice": 56.99
+        }],
+
+        "orderDate": "8/26/2022, 11:30:36 AM",
+        "totalAmount": 134.96
+    },
+    {
+
+        "products": [{
+            "productId": "63046f7ec1681382ff19d97a",
+            "qty": 1
+        }],
+
+        "orderDate": "8/26/2022, 11:27:38 AM",
+        "totalAmount": 134.96
+    },
+    {
+
+        "products": [{
+            "productId": "63046f7ec1681382ff19d97b",
+            "qty": 1
+        }],
+
+        "orderDate": "8/26/2022, 11:27:38 AM",
+        "totalAmount": 134.96
+    }]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[{
+    "_id": "63085d50dc45c3436d39fc35",
+    "email": "rutuja@gmail.com",
+    "products": [{
+        "_id": "63085d50dc45c3436d39fc36"
+    },
+    {
+        "productId": "63046f7ec1681382ff19d97a",
+        "Quantity": 1,
+        "_id": "63085d50dc45c3436d39fc37"
+    },
+    {
+        "productId": "63046f7ec1681382ff19d97b",
+        "Quantity": 1,
+        "_id": "63085d50dc45c3436d39fc38"
+    },
+    {
+        "productId": "63046f7ec1681382ff19d982",
+        "Quantity": 2,
+        "_id": "63085d50dc45c3436d39fc39"
+    }],
+    "shipping": [{
+        "address": "uttamnager",
+        "_id": "63085d50dc45c3436d39fc3a"
+    }],
+    "__v": 0
+},
+{
+    "_id": "630860f85e2fda2e84d5df35",
+    "email": "rutuja@gmail.com",
+    "products": [{
+        "_id": "630860f85e2fda2e84d5df36"
+    },
+    {
+        "productId": "63046f7ec1681382ff19d97a",
+        "Quantity": 1,
+        "_id": "630860f85e2fda2e84d5df37"
+    },
+    {
+        "productId": "63046f7ec1681382ff19d97b",
+        "Quantity": 1,
+        "_id": "630860f85e2fda2e84d5df38"
+    },
+    {
+        "productId": "63046f7ec1681382ff19d982",
+        "Quantity": 2,
+        "_id": "630860f85e2fda2e84d5df39"
+    }],
+    "shipping": [{
+        "address": "uttamnager",
+        "_id": "630860f85e2fda2e84d5df3a"
+    }],
+    "totalAmount": 134.96, "date": "8/26/2022, 11:27:38 AM",
+    "__v": 0
+},
+    {
+        "_id": "630861dfdfa645de167cf483",
+        "email": "rutuja@gmail.com",
+        "products": [{
+            "_id": "630861dfdfa645de167cf484"
+        },
+        {
+            "productId": "63046f7ec1681382ff19d97a",
+            "Quantity": 1,
+            "price": 9.99,
+            "_id": "630861dfdfa645de167cf485"
+        },
+        {
+            "productId": "63046f7ec1681382ff19d97b",
+            "Quantity": 1,
+            "price": 10.99,
+            "_id": "630861dfdfa645de167cf486"
+        },
+        {
+            "productId": "63046f7ec1681382ff19d982",
+            "Quantity": 2,
+            "price": 56.99,
+            "_id": "630861dfdfa645de167cf487"
+        }],
+        "shipping": [{
+            "address": "uttamnager",
+            "_id": "630861dfdfa645de167cf488"
+        }],
+        "totalAmount": 134.96,
+        "date": "8/26/2022, 11: 30: 36 AM", 
+        "__v": 0
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ==========================================================================================
+
+const { render } = require('ejs');
+var express = require('express');
+var router = express.Router();
+var Orders = require('../../config/mongoose').Orders;
+var Products = require('../../config/mongoose').Products;
+
+
+/* GET home page. */
+router.get('/orders/:id', async function (req, res, next) {
+
+    var prodTitle
+    var prodPrice
+    var prodQuantity
+    var orderDate
+    var totalAmount
+    var category
+
+    var unique = []
+
+    var orderDetails = []
+
+    console.log('orders route admin : ' + req.params.id);
+    var orders = await Orders.find({ email: req.params.id })
+
+    console.log('\n\norders of user : ' + JSON.stringify(orders) + "\n\n " + orders.length);
+
+    var orderFunction = await getOrderDetails(orders);
+
+
+
+    console.log('\n\n\nfinal order of user : ' + JSON.stringify(orderFunction));
+    console.log('\n\nfind product in order  length : ' + orderFunction.length);
+
+    if (orderFunction) {
+        res.render('./admin/user/orders', { orderDetails: orderFunction });
+    }
+
+});
+
+
+// orderDetails.push({
+//     prodTitle: prod.title,
+//     prodPrice: val['price'],
+//     prodQuantity: val['Quantity'],
+//     orderDate: value['date'],
+//     totalAmount: value['totalAmount'],
+//     prodCategory: prod.category
+// })
+
+
+router.get('/update-user', function (req, res, next) {
+    var name = req.query.name;
+    var email = req.query.email;
+    var password = req.query.password;
+    var id = req.query.id;
+
+
+    console.log('update route admin' + name);
+
+    res.render('./admin/user/editUser', { name: name, email: email, password: password, id: id });
+
+});
+
+router.post('/update', function (req, res, next) {
+    var user_id = req.body;
+
+    console.log('usersid : ' + JSON.stringify(user_id));
+
+    User.findOne({
+        email: req.body.email
+    }, function (error, user) {
+        if (error)
+            res.render('error');
+
+        for (prop in req.body) {
+            user[prop] = req.body[prop];
+        }
+        user.save(function (err, result) {
+            User.find(function (err, users) {
+                if (err)
+                    res.render('error');
+                res.render('./admin/user/allUser', { users: users });
+            });
+        });
+    });
+});
+
+
+/* DELETE account by accountId  */
+router.get('/user-delete', function (req, res, next) {
+    var id = req.query.id;
+
+    console.log('in delete user : ' + `ObjectId(${id})`);
+
+    User.deleteOne({
+        _id: id
+    }, function (err, user) {
+        if (err) {
+            console.log('delete error 1: ' + JSON.stringify(err));
+            res.render('error');
+        } else {
+            User.find(function (err, users) {
+                if (err) {
+                    console.log('delete error 2: ' + JSON.stringify(err));
+
+                    res.render('error');
+                } else {
+                    res.render('./admin/user/allUser', { users: users });
+                }
+            });
+        }
+    })
+});
+
+
+/* GET home page. */
+router.get('/signup', function (req, res, next) {
+    console.log('login route admin');
+    res.render('./admin/auth/signup');
+});
+
+
+async function getOrderDetails(orders) {
+    var orderDetails = [];
+    var productDetails = [];
+
+    return new Promise(async function (resolve, reject) {
+        orders.map(async (value, key) => {
+
+            await value['products'].forEach(async ele => {
+                if (ele.productId) {
+                    const productRes = await Products.find({ _id: ele.productId }).then(response => {
+                        console.log('\n\n\n\n\n\n   elePRodd svn vf : ' + JSON.stringify(response));
+                        if (response) {
+
+                            console.log('\n\n\nfind product in order  2 : ' + JSON.stringify(response));
+
+                            orderDetails.push({
+                                products: [{ id: ele._id, productId: ele.productId, qty: ele.Quantity, exactPrice: ele.price }],
+                                orderDate: value['date'],
+                                totalAmount: value['totalAmount']
+                            })
+                        }
+                    }).then(async() => {
+                        console.log('\n\n\n\n\n\n\n\n\n   checkkkkkkkkkkkkkkkkkkk : ' + JSON.stringify(orderDetails));
+                        
+                         resolve(orderDetails)
+                    })
+
+                    // res.render('./admin/product/allProduct', { products: products });
+
+                }
+            })
+            console.log('\n\n\nin promise : ' + JSON.stringify(orderDetails));
+
+
+
+
+        })
+    }).then(res => {
+        console.log('\n\n\nin promise then : ' + JSON.stringify(res));
+        return res;
+    })
+}
+
+module.exports = router;
+
+
+
+db.orders.aggregate([{ $lookup: { from: 'products', localField: 'products.productId', foreignField: '_id', as: 'pro' } }]);
+
+
+
+db.getCollection('orders').aggregate([
+    { $unwind: '$productsArr' },
+    {
+        $lookup: {
+            from: 'products',
+            localField: 'productsArr._id',
+            foreignField: '_id',
+            as: 'productsArr.product'
+        }
+    },
+    { $unwind: '$productsArr.product' },
+    {
+        $group: {
+            _id: '$_id',
+            root: { $mergeObjects: '$$ROOT' },
+            productsArr: { $push: '$productsArr' }
+        }
+    },
+    {
+        $replaceRoot: {
+            newRoot: {
+                $mergeObjects: ['$root', '$$ROOT']
+            }
+        }
+    },
+    {
+        $project: {
+            root: 0
+        }
+    }
+]);
+
+
+db.orders.aggregate[{$lookup: {
+    "from": "orders",
+    "let": {"productId": "$_id"},
+    pipeline: [
+      {
+        "$match": {
+          "$expr": {
+            "$in": ["$$productId", "$productsArr._id"],  
+          },
+        },
+      },
+    ],
+    as: "details"
+  }}]
+
